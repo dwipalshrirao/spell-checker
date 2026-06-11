@@ -1,0 +1,31 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - GRAMMARCHECK_OLLAMA_URL=http://ollama:11434/api/generate
+      - GRAMMARCHECK_DATABASE_URL=sqlite:///data/grammarcheck.db
+      - GRAMMARCHECK_LOG_LEVEL=INFO
+    volumes:
+      - grammarcheck_data:/app/data
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  grammarcheck_data:

@@ -1,0 +1,89 @@
+[
+  {
+    "id": "spelling-1",
+    "description": "Basic spelling + grammar",
+    "status": "pass",
+    "errors_found": [
+      {
+        "original": "has went",
+        "corrected": "went",
+        "type": "grammar",
+        "reason": "The past tense of 'to go' is 'went'. 'Has went' is an incorrect combination of auxiliary and main verb."
+      },
+      {
+        "original": "teh",
+        "corrected": "the",
+        "type": "spelling",
+        "reason": "Typographical misspelling of the article 'the'."
+      }
+    ],
+    "expected_count": 2
+  },
+  {
+    "id": "grammar-1",
+    "description": "Subject-verb agreement",
+    "status": "pass",
+    "errors_found": [
+      {
+        "original": "dont",
+        "corrected": "doesn't",
+        "type": "grammar",
+        "reason": "The third-person singular subject ('She') requires the auxiliary verb 'does' followed by 'n't' (does not)."
+      },
+      {
+        "original": "likes",
+        "corrected": "like",
+        "type": "grammar",
+        "reason": "After the auxiliary verb 'does' (or 'doesn't'), the main verb must be in its base form (infinitive without 'to')."
+      }
+    ],
+    "expected_count": 1
+  },
+  {
+    "id": "punctuation-1",
+    "description": "Missing apostrophe",
+    "status": "pass",
+    "errors_found": [
+      {
+        "original": "Whats",
+        "corrected": "What's",
+        "type": "punctuation",
+        "reason": "The contraction 'What's' (meaning 'What is') requires an apostrophe."
+      }
+    ],
+    "expected_count": 1
+  },
+  {
+    "id": "clean-1",
+    "description": "No errors expected",
+    "status": "pass",
+    "errors_found": [],
+    "expected_count": 0
+  },
+  {
+    "id": "multiple-1",
+    "description": "Multiple error types",
+    "status": "pass",
+    "errors_found": [
+      {
+        "original": "runned",
+        "corrected": "ran",
+        "type": "grammar",
+        "reason": "The past tense of the irregular verb 'run' is 'ran', not 'runned'."
+      },
+      {
+        "original": "fastly",
+        "corrected": "fast",
+        "type": "grammar",
+        "reason": "The word 'fast' is an adjective and adverb; it does not require the suffix '-ly' to function as an adverb."
+      },
+      {
+        "original": "studdied",
+        "corrected": "studied",
+        "type": "spelling",
+        "reason": "The correct spelling of the past tense of 'study' is 'studied'."
+      }
+    ],
+    "expected_count": 3
+  }
+]
