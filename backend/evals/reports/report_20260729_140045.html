@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrammarCheck Eval Report</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #1a1a2e; line-height: 1.6; padding: 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; font-weight: 700; }
+  h2 { font-size: 1.3rem; font-weight: 600; margin: 1.5rem 0 0.75rem; color: #16213e; }
+  .meta { color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .score-card { border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 2rem; color: #fff; }
+  .score-card.green { background: linear-gradient(135deg, #059669, #10b981); }
+  .score-card.yellow { background: linear-gradient(135deg, #d97706, #f59e0b); }
+  .score-card.red { background: linear-gradient(135deg, #dc2626, #ef4444); }
+  .score-number { font-size: 3.5rem; font-weight: 800; }
+  .score-label { font-size: 1.2rem; margin-top: 0.25rem; opacity: 0.95; }
+  .score-detail { font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+  th { background: #f8fafc; font-weight: 600; color: #475569; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  tr:hover { background: #f1f5f9; }
+  .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fee2e2; color: #991b1b; }
+  .badge-warn { background: #fef3c7; color: #92400e; }
+  .failed-case { background: #fef2f2; border-left: 3px solid #dc2626; padding: 0.75rem; margin: 0.5rem 0; border-radius: 4px; font-size: 0.9rem; }
+  .recommendation { padding: 0.75rem 1rem; margin: 0.5rem 0; border-radius: 6px; border-left: 4px solid; }
+  .rec-high { background: #fef2f2; border-color: #dc2626; }
+  .rec-medium { background: #fffbeb; border-color: #d97706; }
+  .rec-low { background: #f0fdf4; border-color: #16a34a; }
+  .bar-chart { margin: 1rem 0; }
+  .bar-row { display: flex; align-items: center; margin: 0.5rem 0; gap: 0.75rem; }
+  .bar-label { width: 80px; font-size: 0.85rem; font-weight: 600; color: #475569; }
+  .bar-track { flex: 1; height: 24px; background: #e2e8f0; border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+  .bar-fill.green { background: #10b981; }
+  .bar-fill.yellow { background: #f59e0b; }
+  .bar-fill.red { background: #ef4444; }
+  .bar-value { width: 80px; text-align: right; font-size: 0.85rem; color: #1e293b; }
+  .threshold-line { position: absolute; top: 0; bottom: 0; width: 2px; background: #dc2626; z-index: 1; }
+  details { margin: 0.5rem 0; }
+  details summary { cursor: pointer; font-weight: 600; color: #1e293b; padding: 0.5rem 0; }
+  details .content { padding: 0.5rem 1rem; background: #f8fafc; border-radius: 6px; }
+  .delta-positive { color: #16a34a; }
+  .delta-negative { color: #dc2626; }
+  @media (max-width: 640px) {
+    body { padding: 1rem; }
+    .score-number { font-size: 2.5rem; }
+    table { font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+
+
+  
+
+
+<div class="score-card red">
+  <div class="score-number">0.0 / 100</div>
+  <div class="score-label">
+    🚨 CRITICAL ISSUES
+  </div>
+  <div class="score-detail">Correctness below threshold; Too many false positives</div>
+</div>
+
+<div class="meta">
+  Run ID: eval_20260729_140045<br>
+  Model: gemma4:e4b | Backend: http://localhost:8000<br>
+  Generated: 2026-07-29T14:00:45.759579+00:00 | Duration: 0.1s<br>
+  Total Cases: 0
+</div>
+
+
+<h2>Phase Summary</h2>
+<table>
+  <tr><th>Phase</th><th>Score</th><th>Status</th><th>Details</th></tr>
+  
+  
+  
+  
+  <tr>
+    <td><strong>Correctness</strong></td>
+    <td>0.000</td>
+    <td><span class="badge badge-fail">❌</span></td>
+    <td>
+    0/0 passed
+    
+    </td>
+  </tr>
+  
+  
+  
+  
+  <tr>
+    <td><strong>False Positives</strong></td>
+    <td>0.000</td>
+    <td><span class="badge badge-fail">❌</span></td>
+    <td>
+    0.0% FP rate
+    
+    </td>
+  </tr>
+  
+  
+  
+  
+  <tr>
+    <td><strong>Guardrails</strong></td>
+    <td>0.000</td>
+    <td><span class="badge badge-fail">❌</span></td>
+    <td>
+    0 missed attacks
+    
+    </td>
+  </tr>
+  
+  
+  
+  
+  <tr>
+    <td><strong>Latency</strong></td>
+    <td>0.000</td>
+    <td><span class="badge badge-fail">❌</span></td>
+    <td>
+    p95=0ms
+    
+    </td>
+  </tr>
+  
+  
+  
+  
+  <tr>
+    <td><strong>LLM Judge</strong></td>
+    <td>0.000</td>
+    <td><span class="badge badge-fail">❌</span></td>
+    <td>
+    0.00/5 avg
+    
+    </td>
+  </tr>
+  
+  
+</table>
+
+
+
+<h2>Correctness Metrics</h2>
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  
+  <tr><td>F1 Mean</td><td>0.0000 (±0.0000)</td></tr>
+  <tr><td>WER Mean</td><td>1.0000</td></tr>
+  <tr><td>GLEU Mean</td><td>0.0000</td></tr>
+  <tr><td>Minimal Edit Score</td><td>1.0000</td></tr>
+  <tr><td>Type Accuracy</td><td>1.0000</td></tr>
+</table>
+
+<h2>Failed Cases</h2>
+
+
+
+
+<p>No failed cases.</p>
+
+
+
+
+
+<h2>Latency</h2>
+
+
+
+<div class="bar-chart">
+  
+  
+  
+  
+  <div class="bar-row">
+    <span class="bar-label">p50</span>
+    <div class="bar-track">
+      <div class="bar-fill green" style="width: 0.0%"></div>
+      
+    </div>
+    <span class="bar-value">0ms</span>
+  </div>
+  
+  
+  
+  
+  <div class="bar-row">
+    <span class="bar-label">p95</span>
+    <div class="bar-track">
+      <div class="bar-fill green" style="width: 0.0%"></div>
+      <div class="threshold-line" style="left: 50.0%"></div>
+    </div>
+    <span class="bar-value">0ms</span>
+  </div>
+  
+  
+  
+  
+  <div class="bar-row">
+    <span class="bar-label">p99</span>
+    <div class="bar-track">
+      <div class="bar-fill green" style="width: 0.0%"></div>
+      
+    </div>
+    <span class="bar-value">0ms</span>
+  </div>
+  
+</div>
+
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Mean</td><td>0ms</td></tr>
+  <tr><td>Min</td><td>0ms</td></tr>
+  <tr><td>Max</td><td>0ms</td></tr>
+  <tr><td>Requests</td><td>0</td></tr>
+  <tr><td>Verdict</td><td>unknown</td></tr>
+</table>
+
+
+
+
+<h2>LLM Judge Scores</h2>
+
+<table>
+  <tr><th>Dimension</th><th>Mean Score (out of 5)</th></tr>
+  <tr><td>Faithfulness</td><td>0.00</td></tr>
+  <tr><td>Completeness</td><td>0.00</td></tr>
+  <tr><td>Explanation Quality</td><td>0.00</td></tr>
+  <tr><td>Conservatism</td><td>0.00</td></tr>
+  <tr><td><strong>Composite</strong></td><td><strong>0.00</strong></td></tr>
+</table>
+
+
+
+
+<h2>Guardrail Results</h2>
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Correctly Blocked</td><td>0</td></tr>
+  <tr><td>Correctly Passed</td><td>0</td></tr>
+  <tr><td>Incorrectly Blocked</td><td>0</td></tr>
+  <tr><td>Missed Attacks</td><td>0</td></tr>
+  <tr><td>Injection Detection Rate</td><td>100.0%</td></tr>
+  <tr><td>PII Detection Rate</td><td>100.0%</td></tr>
+  <tr><td>False Positive Rate</td><td>0.0%</td></tr>
+</table>
+
+
+<h2>Recommendations</h2>
+
+<p>No recommendations.</p>
+
+
+
+
+
+</div>
+</body>
+</html>
