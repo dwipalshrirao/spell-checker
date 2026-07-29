@@ -1,0 +1,32 @@
+name: GrammarCheck
+options:
+  bundleIdPrefix: com.grammarcheck
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "15.0"
+
+settings:
+  SWIFT_VERSION: "5.9"
+
+targets:
+  GrammarCheck:
+    type: application
+    platform: macOS
+    sources:
+      - path: GrammarCheck
+        excludes:
+          - "Info.plist"
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.grammarcheck.desktop
+      INFOPLIST_FILE: GrammarCheck/Info.plist
+      CODE_SIGN_STYLE: Automatic
+      DEVELOPMENT_TEAM: ""
+    info:
+      path: GrammarCheck/Info.plist
+      properties:
+        LSUIElement: true
+        NSPrincipalClass: NSApplication
+        NSHumanReadableCopyright: "Copyright © 2026 GrammarCheck. All rights reserved."
+        CFBundleShortVersionString: "1.0.0"
+        CFBundleVersion: "1"
+        CFBundlePackageType: APPL
