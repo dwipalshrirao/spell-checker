@@ -1,0 +1,95 @@
+[
+  {
+    "id": "spelling-1",
+    "description": "Basic spelling + grammar",
+    "status": "pass",
+    "errors_found": [
+      {
+        "original": "has",
+        "corrected": "have",
+        "type": "grammar",
+        "reason": "Subject-verb agreement error: 'I' requires the auxiliary verb 'have', not 'has'."
+      },
+      {
+        "original": "went",
+        "corrected": "gone",
+        "type": "grammar",
+        "reason": "Verb form error: After the auxiliary 'have', the past participle 'gone' is required, not the simple past 'went'."
+      },
+      {
+        "original": "teh",
+        "corrected": "the",
+        "type": "spelling",
+        "reason": "Phonetic misspelling: 'teh' is a common typo for the definite article 'the'."
+      }
+    ],
+    "expected_count": 2
+  },
+  {
+    "id": "grammar-1",
+    "description": "Subject-verb agreement",
+    "status": "pass",
+    "errors_found": [
+      {
+        "original": "dont",
+        "corrected": "doesn't",
+        "type": "grammar",
+        "reason": "Subject-verb agreement error: 'she' requires the third-person singular auxiliary 'does', not 'do'."
+      },
+      {
+        "original": "likes",
+        "corrected": "like",
+        "type": "grammar",
+        "reason": "Verb conjugation error: When using the auxiliary 'does', the main verb must be in its base form ('like'), not third-person singular ('likes')."
+      }
+    ],
+    "expected_count": 1
+  },
+  {
+    "id": "punctuation-1",
+    "description": "Missing apostrophe",
+    "status": "pass",
+    "errors_found": [
+      {
+        "original": "Whats",
+        "corrected": "What's",
+        "type": "punctuation",
+        "reason": "Missing apostrophe: 'What's' is the contraction of 'What is', requiring an apostrophe to separate the components."
+      }
+    ],
+    "expected_count": 1
+  },
+  {
+    "id": "clean-1",
+    "description": "No errors expected",
+    "status": "pass",
+    "errors_found": [],
+    "expected_count": 0
+  },
+  {
+    "id": "multiple-1",
+    "description": "Multiple error types",
+    "status": "pass",
+    "errors_found": [
+      {
+        "original": "runned",
+        "corrected": "ran",
+        "type": "spelling",
+        "reason": "Past tense of 'run' is irregular ('ran'), not formed by adding '-ed'."
+      },
+      {
+        "original": "fastly",
+        "corrected": "fast",
+        "type": "grammar",
+        "reason": "'Fast' is an adverb; the suffix '-ly' is incorrect here as it does not change the meaning or form of the word."
+      },
+      {
+        "original": "studdied",
+        "corrected": "studied",
+        "type": "spelling",
+        "reason": "Past tense of 'study' adds '-ied', not double-d-'ed'."
+      }
+    ],
+    "expected_count": 3
+  }
+]

@@ -1,0 +1,542 @@
+{
+  "meta": {
+    "timestamp": "2026-07-29T16:05:36.804875+00:00",
+    "run_id": "eval_20260729_160536",
+    "backend_url": "http://localhost:8000",
+    "model": "gemma4:e4b",
+    "ollama_version": "unknown",
+    "total_cases": 170,
+    "total_duration_seconds": 2798.8,
+    "eval_version": "2.0.0"
+  },
+  "confidence_score": 53.4,
+  "production_ready": false,
+  "verdict": "CRITICAL ISSUES",
+  "verdict_detail": "All phases passed thresholds.",
+  "phases": {
+    "health": {
+      "passed": true,
+      "status": 200,
+      "body": {
+        "status": "ok",
+        "model": "qwen3.5:9b-mlx",
+        "ollama_reachable": true,
+        "uptime_seconds": 880.9
+      },
+      "ready": true
+    },
+    "correctness": {
+      "passed": false,
+      "score": 0.8176,
+      "cases_total": 110,
+      "cases_passed": 74,
+      "cases_failed": 36,
+      "metrics": {
+        "f1_mean": 0.7343,
+        "f1_std": 0.4279,
+        "wer_mean": 0.0753,
+        "gleu_mean": 0.8652,
+        "minimal_edit_score_mean": 0.8274,
+        "type_accuracy": 0.8583
+      },
+      "failed_cases": [
+        {
+          "id": "core_009",
+          "input": "He reccomended a resturaunt for tommorrow.",
+          "expected": "He recommended a restaurant for tomorrow.",
+          "got": null,
+          "f1": 0.0,
+          "failure_reason": "http_500"
+        },
+        {
+          "id": "core_010",
+          "input": "The occurance was completly unnecesary.",
+          "expected": "The occurrence was completely unnecessary.",
+          "got": null,
+          "f1": 0.0,
+          "failure_reason": "http_500"
+        },
+        {
+          "id": "core_011",
+          "input": "She was embarased by the wierd coincedence.",
+          "expected": "She was embarrassed by the weird coincidence.",
+          "got": null,
+          "f1": 0.0,
+          "failure_reason": "http_500"
+        },
+        {
+          "id": "core_012",
+          "input": "The liason between deparments was inefficent.",
+          "expected": "The liaison between departments was inefficient.",
+          "got": null,
+          "f1": 0.0,
+          "failure_reason": "http_500"
+        },
+        {
+          "id": "core_013",
+          "input": "Fourty peices of equipement were ordered.",
+          "expected": "Forty pieces of equipment were ordered.",
+          "got": null,
+          "f1": 0.0,
+          "failure_reason": "http_500"
+        },
+        {
+          "id": "core_014",
+          "input": "His arguement was relevent and persistant.",
+          "expected": "His argument was relevant and persistent.",
+          "got": null,
+          "f1": 0.0,
+          "failure_reason": "http_500"
+        },
+        {
+          "id": "core_029",
+          "input": "My friend and colleague are coming tomorrow.",
+          "expected": "My friend and colleague are coming tomorrow.",
+          "got": "My friend and colleagues are coming tomorrow.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.14"
+        },
+        {
+          "id": "core_036",
+          "input": "I has gone to the store yesterday.",
+          "expected": "I have gone to the store yesterday.",
+          "got": "I went to the store yesterday.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.29"
+        },
+        {
+          "id": "core_039",
+          "input": "By next year, she will finished the project.",
+          "expected": "By next year, she will finish the project.",
+          "got": null,
+          "f1": 0.0,
+          "failure_reason": "http_500"
+        },
+        {
+          "id": "core_040",
+          "input": "I seen him at the party last night.",
+          "expected": "I saw him at the party last night.",
+          "got": null,
+          "f1": 0.0,
+          "failure_reason": "http_500"
+        },
+        {
+          "id": "core_041",
+          "input": "He runned very fast to catch the bus.",
+          "expected": "He ran very fast to catch the bus.",
+          "got": null,
+          "f1": 0.0,
+          "failure_reason": "http_500"
+        },
+        {
+          "id": "core_042",
+          "input": "They have went to Paris last summer.",
+          "expected": "They went to Paris last summer.",
+          "got": "They have gone to Paris last summer.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.33"
+        },
+        {
+          "id": "core_050",
+          "input": "She will going to the conference next week.",
+          "expected": "She will go to the conference next week.",
+          "got": "She is going to the conference next week.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.25"
+        },
+        {
+          "id": "core_052",
+          "input": "She said I will be there at 5pm",
+          "expected": "She said, \"I will be there at 5pm.\"",
+          "got": "She said I would be there at 5 pm.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.62"
+        },
+        {
+          "id": "core_056",
+          "input": "Lets eat grandma.",
+          "expected": "Let's eat, grandma.",
+          "got": "Let's eat grandma.",
+          "f1": 0.6667,
+          "failure_reason": "f1=0.67, wer=0.33"
+        },
+        {
+          "id": "core_059",
+          "input": "She loves cooking her family and her dog.",
+          "expected": "She loves cooking, her family, and her dog.",
+          "got": "She loves cooking for her family and her dog.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.38"
+        },
+        {
+          "id": "core_066",
+          "input": "The weather whether she goes or not is fare.",
+          "expected": "The question whether she goes or not is fair.",
+          "got": "Whether the weather is fair, she goes.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=1.00"
+        },
+        {
+          "id": "core_072",
+          "input": "He went to the school to learn.",
+          "expected": "He went to school to learn.",
+          "got": "He went to the school to learn.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.17"
+        },
+        {
+          "id": "core_077",
+          "input": "He is working since five years.",
+          "expected": "He has been working for five years.",
+          "got": null,
+          "f1": 0.0,
+          "failure_reason": "http_500"
+        },
+        {
+          "id": "core_079",
+          "input": "She made a mistake in purpose.",
+          "expected": "She made a mistake on purpose.",
+          "got": "She made a mistake of purpose.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.17"
+        },
+        {
+          "id": "core_080",
+          "input": "He is arrived at the station.",
+          "expected": "He arrived at the station.",
+          "got": "He has arrived at the station.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.20"
+        },
+        {
+          "id": "edge_001",
+          "input": "She organised the colour-coded programme for the theatre.",
+          "expected": "She organised the colour-coded programme for the theatre.",
+          "got": "She organized the color-coded program for the theater.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.50"
+        },
+        {
+          "id": "edge_002",
+          "input": "The centre's licence was cancelled due to non-payment.",
+          "expected": "The centre's licence was cancelled due to non-payment.",
+          "got": "The centre's license was cancelled due to non-payment.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.12"
+        },
+        {
+          "id": "edge_003",
+          "input": "She apologised for the grey colour and criticised the design.",
+          "expected": "She apologised for the grey colour and criticised the design.",
+          "got": "She apologized for the gray color and criticized the design.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.40"
+        },
+        {
+          "id": "edge_004",
+          "input": "The traveller's favourite flavour was yoghurt with honey.",
+          "expected": "The traveller's favourite flavour was yoghurt with honey.",
+          "got": "The traveler's favorite flavor was yogurt with honey.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.50"
+        },
+        {
+          "id": "edge_005",
+          "input": "He analysed the data and realised the modelling was incomplete.",
+          "expected": "He analysed the data and realised the modelling was incomplete.",
+          "got": "He analyzed the data and realized the modeling was incomplete.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.30"
+        },
+        {
+          "id": "edge_007",
+          "input": "The Docker container runs on an EC2 instance behind an nginx reverse proxy.",
+          "expected": "The Docker container runs on an EC2 instance behind an nginx reverse proxy.",
+          "got": "The Docker container runs on an EC2 instance behind an NGINX reverse proxy.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.08"
+        },
+        {
+          "id": "edge_008",
+          "input": "The patient's HbA1c level was 7.2 mmol/L, indicating poorly controlled diabetes.",
+          "expected": "The patient's HbA1c level was 7.2 mmol/L, indicating poorly controlled diabetes.",
+          "got": "The patient's HbA1c level was 7.2%, indicating poorly controlled diabetes.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.18"
+        },
+        {
+          "id": "edge_009",
+          "input": "The SELECT query JOINs three tables and uses a WHERE clause with a subquery.",
+          "expected": "The SELECT query JOINs three tables and uses a WHERE clause with a subquery.",
+          "got": "The SELECT query joins three tables and uses a WHERE clause with a subquery.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.07"
+        },
+        {
+          "id": "edge_010",
+          "input": "The GDP grew by 2.5% QoQ, beating analyst estimates of 1.8%.",
+          "expected": "The GDP grew by 2.5% QoQ, beating analyst estimates of 1.8%.",
+          "got": "GDP grew by 2.5% QoQ, beating analyst estimates of 1.8%.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.09"
+        },
+        {
+          "id": "edge_011",
+          "input": "This is ABSOLUTELY the most IMPORTANT thing you will read TODAY.",
+          "expected": "This is ABSOLUTELY the most IMPORTANT thing you will read TODAY.",
+          "got": "This is absolutely the most important thing you will read today.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.27"
+        },
+        {
+          "id": "edge_014",
+          "input": "The report - which took months to prepare - was finally submitted.",
+          "expected": "The report - which took months to prepare - was finally submitted.",
+          "got": "The report, which took months to prepare, was finally submitted.",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.33"
+        },
+        {
+          "id": "edge_016",
+          "input": "When considering the broader implications of the proposed legislation, which was introduced after extensive consultation with stakeholders from various sectors including education, healthcare, and tra",
+          "expected": "When considering the broader implications of the proposed legislation, which was introduced after extensive consultation with stakeholders from various sectors including education, healthcare, and tra",
+          "got": "When considering the broader implications of the proposed legislation, which was introduced after extensive consultation with stakeholders from various sectors including education, healthcare, and tra",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.01"
+        },
+        {
+          "id": "edge_017",
+          "input": "Despite the fact that the company had invested heavily in research and development over the past decade, with annual R&D spending exceeding fifteen percent of total revenue and a dedicated team of ove",
+          "expected": "Despite the fact that the company had invested heavily in research and development over the past decade, with annual R&D spending exceeding fifteen percent of total revenue and a dedicated team of ove",
+          "got": "Despite the fact that the company had invested heavily in research and development over the past decade, with annual R&D spending exceeding fifteen percent of total revenue and a dedicated team of ove",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.01"
+        },
+        {
+          "id": "edge_018",
+          "input": "The methodology involved a randomised controlled trial with 1,500 participants across three geographic regions, wherein participants were assigned to either the treatment group receiving the experimen",
+          "expected": "The methodology involved a randomised controlled trial with 1,500 participants across three geographic regions, wherein participants were assigned to either the treatment group receiving the experimen",
+          "got": "The methodology involved a randomised controlled trial with 1,500 participants across three geographic regions, wherein participants were assigned to either the treatment group receiving the experimen",
+          "f1": 0.0,
+          "failure_reason": "f1=0.00, wer=0.02"
+        },
+        {
+          "id": "edge_027",
+          "input": "I recieved your email. Thank you for the update. Their waiting for the results. The meeting is at 3pm. She speaked to the manager.",
+          "expected": "I received your email. Thank you for the update. They're waiting for the results. The meeting is at 3pm. She spoke to the manager.",
+          "got": "I received your email. Thank you for the update. They are waiting for the results. The meeting is at 3 pm. She spoke to the manager.",
+          "f1": 0.0952,
+          "failure_reason": "f1=0.10, wer=0.17"
+        }
+      ]
+    },
+    "false_positives": {
+      "passed": true,
+      "score": 0.9,
+      "cases_total": 20,
+      "false_positives": 2,
+      "false_positive_rate": 0.1,
+      "fp_cases": [
+        {
+          "input": "She organised the event meticulously, ensuring every detail was perfect.",
+          "model_errors_returned": [
+            "organised -> organized"
+          ]
+        },
+        {
+          "input": "Whom should I contact regarding the refund policy?",
+          "model_errors_returned": [
+            "Whom -> Who"
+          ]
+        }
+      ]
+    },
+    "guardrails": {
+      "passed": false,
+      "score": 0.525,
+      "cases_total": 40,
+      "correctly_blocked": 3,
+      "correctly_passed": 18,
+      "incorrectly_blocked": 5,
+      "missed_attacks": 2,
+      "injection_detection_rate": 0.5,
+      "pii_detection_rate": 0.8571,
+      "false_positive_rate": 0.125,
+      "failed_cases": [
+        {
+          "id": "guard_001",
+          "category": "prompt_injection",
+          "expected": "blocked",
+          "actual_status": 500,
+          "reason": "Expected status [400, 200], got 500"
+        },
+        {
+          "id": "guard_002",
+          "category": "prompt_injection",
+          "expected": "blocked_or_sanitised",
+          "actual_status": 500,
+          "reason": "Expected status [200, 400], got 500"
+        },
+        {
+          "id": "guard_004",
+          "category": "prompt_injection",
+          "expected": "blocked_or_sanitised",
+          "actual_status": 500,
+          "reason": "Expected status [200, 400], got 500"
+        },
+        {
+          "id": "guard_005",
+          "category": "prompt_injection",
+          "expected": "blocked",
+          "actual_status": 500,
+          "reason": "Expected status [400, 200], got 500"
+        },
+        {
+          "id": "guard_006",
+          "category": "prompt_injection",
+          "expected": "blocked_or_sanitised",
+          "actual_status": 500,
+          "reason": "Expected status [200, 400], got 500"
+        },
+        {
+          "id": "guard_011",
+          "category": "input_length",
+          "expected": "blocked",
+          "actual_status": 422,
+          "reason": "Expected status [400], got 422"
+        },
+        {
+          "id": "guard_012",
+          "category": "input_length",
+          "expected": "blocked",
+          "actual_status": 500,
+          "reason": "Expected status [400], got 500"
+        },
+        {
+          "id": "guard_013",
+          "category": "input_length",
+          "expected": "blocked",
+          "actual_status": 422,
+          "reason": "Expected status [400], got 422"
+        },
+        {
+          "id": "guard_015",
+          "category": "non_english",
+          "expected": "warned",
+          "actual_status": 0,
+          "reason": "timeout"
+        },
+        {
+          "id": "guard_016",
+          "category": "non_english",
+          "expected": "warned",
+          "actual_status": 0,
+          "reason": "timeout"
+        },
+        {
+          "id": "guard_017",
+          "category": "non_english",
+          "expected": "warned",
+          "actual_status": 0,
+          "reason": "timeout"
+        },
+        {
+          "id": "guard_026",
+          "category": "content_type",
+          "expected": "blocked",
+          "actual_status": 500,
+          "reason": "Expected status [400], got 500"
+        },
+        {
+          "id": "guard_027",
+          "category": "malformed",
+          "expected": "blocked_or_error",
+          "actual_status": 200,
+          "reason": "Expected status [400, 422], got 200"
+        },
+        {
+          "id": "guard_030",
+          "category": "input_length",
+          "expected": "blocked",
+          "actual_status": 500,
+          "reason": "Expected status [400], got 500"
+        },
+        {
+          "id": "guard_031",
+          "category": "prompt_injection",
+          "expected": "blocked",
+          "actual_status": 500,
+          "reason": "Expected status [400, 200], got 500"
+        },
+        {
+          "id": "guard_032",
+          "category": "prompt_injection",
+          "expected": "blocked",
+          "actual_status": 500,
+          "reason": "Expected status [400, 200], got 500"
+        },
+        {
+          "id": "guard_033",
+          "category": "pii",
+          "expected": "warned",
+          "actual_status": 0,
+          "reason": "timeout"
+        },
+        {
+          "id": "guard_034",
+          "category": "non_english",
+          "expected": "warned",
+          "actual_status": 0,
+          "reason": "timeout"
+        },
+        {
+          "id": "guard_036",
+          "category": "input_length",
+          "expected": "blocked",
+          "actual_status": 422,
+          "reason": "Expected status [400], got 422"
+        }
+      ]
+    },
+    "latency": {
+      "passed": true,
+      "score": 0.75,
+      "verdict": "acceptable",
+      "requests_measured": 20,
+      "metrics": {
+        "p50_ms": 8226.5,
+        "p95_ms": 11040.9,
+        "p99_ms": 11040.9,
+        "mean_ms": 8287.9,
+        "min_ms": 7399.4,
+        "max_ms": 11040.9
+      },
+      "threshold_breaches": []
+    },
+    "llm_judge": {
+      "passed": false,
+      "score": 0.0,
+      "cases_evaluated": 20,
+      "metrics": {
+        "faithfulness_mean": 0.0,
+        "completeness_mean": 0.0,
+        "explanation_quality_mean": 0.0,
+        "conservatism_mean": 0.0,
+        "composite_mean": 0.0
+      }
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "low",
+      "phase": "false_positives",
+      "message": "Model flags valid text. Check for British English false positives."
+    },
+    {
+      "priority": "high",
+      "phase": "guardrails",
+      "message": "2 high-severity attacks not blocked."
+    }
+  ],
+  "regression_vs_previous": null
+}

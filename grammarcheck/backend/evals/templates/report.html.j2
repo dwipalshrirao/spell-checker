@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrammarCheck Eval Report</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #1a1a2e; line-height: 1.6; padding: 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; font-weight: 700; }
+  h2 { font-size: 1.3rem; font-weight: 600; margin: 1.5rem 0 0.75rem; color: #16213e; }
+  .meta { color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .score-card { border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 2rem; color: #fff; }
+  .score-card.green { background: linear-gradient(135deg, #059669, #10b981); }
+  .score-card.yellow { background: linear-gradient(135deg, #d97706, #f59e0b); }
+  .score-card.red { background: linear-gradient(135deg, #dc2626, #ef4444); }
+  .score-number { font-size: 3.5rem; font-weight: 800; }
+  .score-label { font-size: 1.2rem; margin-top: 0.25rem; opacity: 0.95; }
+  .score-detail { font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+  th { background: #f8fafc; font-weight: 600; color: #475569; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  tr:hover { background: #f1f5f9; }
+  .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fee2e2; color: #991b1b; }
+  .badge-warn { background: #fef3c7; color: #92400e; }
+  .failed-case { background: #fef2f2; border-left: 3px solid #dc2626; padding: 0.75rem; margin: 0.5rem 0; border-radius: 4px; font-size: 0.9rem; }
+  .recommendation { padding: 0.75rem 1rem; margin: 0.5rem 0; border-radius: 6px; border-left: 4px solid; }
+  .rec-high { background: #fef2f2; border-color: #dc2626; }
+  .rec-medium { background: #fffbeb; border-color: #d97706; }
+  .rec-low { background: #f0fdf4; border-color: #16a34a; }
+  .bar-chart { margin: 1rem 0; }
+  .bar-row { display: flex; align-items: center; margin: 0.5rem 0; gap: 0.75rem; }
+  .bar-label { width: 80px; font-size: 0.85rem; font-weight: 600; color: #475569; }
+  .bar-track { flex: 1; height: 24px; background: #e2e8f0; border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+  .bar-fill.green { background: #10b981; }
+  .bar-fill.yellow { background: #f59e0b; }
+  .bar-fill.red { background: #ef4444; }
+  .bar-value { width: 80px; text-align: right; font-size: 0.85rem; color: #1e293b; }
+  .threshold-line { position: absolute; top: 0; bottom: 0; width: 2px; background: #dc2626; z-index: 1; }
+  details { margin: 0.5rem 0; }
+  details summary { cursor: pointer; font-weight: 600; color: #1e293b; padding: 0.5rem 0; }
+  details .content { padding: 0.5rem 1rem; background: #f8fafc; border-radius: 6px; }
+  .delta-positive { color: #16a34a; }
+  .delta-negative { color: #dc2626; }
+  @media (max-width: 640px) {
+    body { padding: 1rem; }
+    .score-number { font-size: 2.5rem; }
+    table { font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+{% set c = report.confidence_score %}
+{% if c >= 85 %}
+  {% set card_class = "green" %}
+{% elif c >= 75 %}
+  {% set card_class = "yellow" %}
+{% else %}
+  {% set card_class = "red" %}
+{% endif %}
+
+<div class="score-card {{ card_class }}">
+  <div class="score-number">{{ "%.1f"|format(c) }} / 100</div>
+  <div class="score-label">
+    {% if report.production_ready %}✅ PRODUCTION READY
+    {% elif c >= 75 %}⚠️ NEEDS IMPROVEMENT
+    {% elif c >= 60 %}❌ NOT READY
+    {% else %}🚨 CRITICAL ISSUES{% endif %}
+  </div>
+  <div class="score-detail">{{ report.verdict_detail }}</div>
+</div>
+
+<div class="meta">
+  Run ID: {{ report.meta.run_id }}<br>
+  Model: {{ report.meta.model }} | Backend: {{ report.meta.backend_url }}<br>
+  Generated: {{ report.meta.timestamp }} | Duration: {{ report.meta.total_duration_seconds }}s<br>
+  Total Cases: {{ report.meta.total_cases }}
+</div>
+
+{% set phases = report.phases %}
+<h2>Phase Summary</h2>
+<table>
+  <tr><th>Phase</th><th>Score</th><th>Status</th><th>Details</th></tr>
+  {% set phase_list = [
+    ("correctness", "Correctness"),
+    ("false_positives", "False Positives"),
+    ("guardrails", "Guardrails"),
+    ("latency", "Latency"),
+    ("llm_judge", "LLM Judge"),
+  ] %}
+  {% for key, label in phase_list %}
+  {% set p = phases.get(key) %}
+  {% if p is not none %}
+  <tr>
+    <td><strong>{{ label }}</strong></td>
+    <td>{{ "%.3f"|format(p.get("score", 0)) }}</td>
+    <td>{% if p.get("passed", false) %}<span class="badge badge-pass">✅</span>{% else %}<span class="badge badge-fail">❌</span>{% endif %}</td>
+    <td>
+    {% if key == "correctness" %}{{ p.get("cases_passed", 0) }}/{{ p.get("cases_total", 0) }} passed
+    {% elif key == "false_positives" %}{{ "%.1f"|format(p.get("false_positive_rate", 0) * 100) }}% FP rate
+    {% elif key == "guardrails" %}{{ p.get("missed_attacks", 0) }} missed attacks
+    {% elif key == "latency" %}p95={{ p.get("metrics", {}).get("p95_ms", 0) | int }}ms
+    {% elif key == "llm_judge" %}{{ "%.2f"|format(p.get("metrics", {}).get("composite_mean", 0)) }}/5 avg
+    {% endif %}
+    </td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+</table>
+
+{% set correctness = phases.get("correctness") %}
+{% if correctness %}
+<h2>Correctness Metrics</h2>
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  {% set cm = correctness.get("metrics", {}) %}
+  <tr><td>F1 Mean</td><td>{{ "%.4f"|format(cm.get("f1_mean", 0)) }} (±{{ "%.4f"|format(cm.get("f1_std", 0)) }})</td></tr>
+  <tr><td>WER Mean</td><td>{{ "%.4f"|format(cm.get("wer_mean", 1)) }}</td></tr>
+  <tr><td>GLEU Mean</td><td>{{ "%.4f"|format(cm.get("gleu_mean", 0)) }}</td></tr>
+  <tr><td>Minimal Edit Score</td><td>{{ "%.4f"|format(cm.get("minimal_edit_score_mean", 1)) }}</td></tr>
+  <tr><td>Type Accuracy</td><td>{{ "%.4f"|format(cm.get("type_accuracy", 1)) }}</td></tr>
+</table>
+
+<h2>Failed Cases</h2>
+{% set fp_cases = phases.get("false_positives", {}).get("fp_cases", []) %}
+{% set guard_failed = phases.get("guardrails", {}).get("failed_cases", []) %}
+{% set all_failed = correctness.get("failed_cases", []) + fp_cases + guard_failed %}
+{% if all_failed %}
+{% for fc in all_failed %}
+<details>
+  <summary>❌ {{ fc.get("id", "?") }} — {{ fc.get("failure_reason") or fc.get("reason") or "Unexpected behaviour" }}</summary>
+  <div class="content">
+    {% if fc.get("input") %}<p><strong>Input:</strong> {{ fc["input"][:200] }}{% if fc["input"]|length > 200 %}…{% endif %}</p>{% endif %}
+    {% if fc.get("expected") %}<p><strong>Expected:</strong> {{ fc["expected"][:200] }}</p>{% endif %}
+    {% if fc.get("got") %}<p><strong>Got:</strong> {{ fc["got"][:200] }}</p>{% endif %}
+    {% if fc.get("f1") is not none %}<p><strong>F1:</strong> {{ "%.2f"|format(fc["f1"]) }}</p>{% endif %}
+  </div>
+</details>
+{% endfor %}
+{% else %}
+<p>No failed cases.</p>
+{% endif %}
+{% endif %}
+
+{% set latency = phases.get("latency") %}
+{% if latency %}
+<h2>Latency</h2>
+{% set lat = latency.get("metrics", {}) %}
+{% set max_val = [lat.get("p99_ms", 0), 30000] | max %}
+{% if max_val > 0 %}
+<div class="bar-chart">
+  {% for label, key in [("p50", "p50_ms"), ("p95", "p95_ms"), ("p99", "p99_ms")] %}
+  {% set val = lat.get(key, 0) %}
+  {% set pct = (val / max_val * 100) | round %}
+  {% set color = "green" if val < 8000 else ("yellow" if val < 15000 else "red") %}
+  <div class="bar-row">
+    <span class="bar-label">{{ label }}</span>
+    <div class="bar-track">
+      <div class="bar-fill {{ color }}" style="width: {{ pct }}%"></div>
+      {% if label == "p95" and max_val > 0 %}<div class="threshold-line" style="left: {{ (15000 / max_val * 100) | round }}%"></div>{% endif %}
+    </div>
+    <span class="bar-value">{{ "%.0f"|format(val) }}ms</span>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Mean</td><td>{{ "%.0f"|format(lat.get("mean_ms", 0)) }}ms</td></tr>
+  <tr><td>Min</td><td>{{ "%.0f"|format(lat.get("min_ms", 0)) }}ms</td></tr>
+  <tr><td>Max</td><td>{{ "%.0f"|format(lat.get("max_ms", 0)) }}ms</td></tr>
+  <tr><td>Requests</td><td>{{ latency.get("requests_measured", 0) }}</td></tr>
+  <tr><td>Verdict</td><td>{{ latency.get("verdict", "unknown") }}</td></tr>
+</table>
+{% endif %}
+
+{% set llm = phases.get("llm_judge") %}
+{% if llm %}
+<h2>LLM Judge Scores</h2>
+{% set jm = llm.get("metrics", {}) %}
+<table>
+  <tr><th>Dimension</th><th>Mean Score (out of 5)</th></tr>
+  <tr><td>Faithfulness</td><td>{{ "%.2f"|format(jm.get("faithfulness_mean", 0)) }}</td></tr>
+  <tr><td>Completeness</td><td>{{ "%.2f"|format(jm.get("completeness_mean", 0)) }}</td></tr>
+  <tr><td>Explanation Quality</td><td>{{ "%.2f"|format(jm.get("explanation_quality_mean", 0)) }}</td></tr>
+  <tr><td>Conservatism</td><td>{{ "%.2f"|format(jm.get("conservatism_mean", 0)) }}</td></tr>
+  <tr><td><strong>Composite</strong></td><td><strong>{{ "%.2f"|format(jm.get("composite_mean", 0)) }}</strong></td></tr>
+</table>
+{% endif %}
+
+{% set guard = phases.get("guardrails") %}
+{% if guard %}
+<h2>Guardrail Results</h2>
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Correctly Blocked</td><td>{{ guard.get("correctly_blocked", 0) }}</td></tr>
+  <tr><td>Correctly Passed</td><td>{{ guard.get("correctly_passed", 0) }}</td></tr>
+  <tr><td>Incorrectly Blocked</td><td>{{ guard.get("incorrectly_blocked", 0) }}</td></tr>
+  <tr><td>Missed Attacks</td><td>{{ guard.get("missed_attacks", 0) }}</td></tr>
+  <tr><td>Injection Detection Rate</td><td>{{ "%.1f"|format(guard.get("injection_detection_rate", 1) * 100) }}%</td></tr>
+  <tr><td>PII Detection Rate</td><td>{{ "%.1f"|format(guard.get("pii_detection_rate", 1) * 100) }}%</td></tr>
+  <tr><td>False Positive Rate</td><td>{{ "%.1f"|format(guard.get("false_positive_rate", 0) * 100) }}%</td></tr>
+</table>
+{% endif %}
+
+<h2>Recommendations</h2>
+{% for rec in report.get("recommendations", []) %}
+<div class="recommendation rec-{{ rec.get("priority", "low") }}">
+  <strong>{{ rec.get("priority", "low") | upper }}:</strong> {{ rec.get("message", "") }}
+</div>
+{% else %}
+<p>No recommendations.</p>
+{% endfor %}
+
+{% set reg = report.get("regression_vs_previous") %}
+{% if reg %}
+<h2>Regression vs Previous Run</h2>
+<p>Confidence change: <span class="{{ 'delta-positive' if reg.get("confidence_change", 0) >= 0 else 'delta-negative' }}">{{ "%+.1f"|format(reg.get("confidence_change", 0)) }}</span></p>
+<table>
+  <tr><th>Metric</th><th>Previous</th><th>Current</th><th>Change</th></tr>
+  {% for key, delta in reg.get("phase_deltas", {}).items() %}
+  <tr>
+    <td>{{ key }}</td>
+    <td>{{ delta.get("previous", "?") }}</td>
+    <td>{{ delta.get("current", "?") }}</td>
+    <td class="{{ 'delta-positive' if delta.get("change", 0) >= 0 else 'delta-negative' }}">{{ "%+.4f"|format(delta.get("change", 0)) }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+</div>
+</body>
+</html>
