@@ -44,17 +44,16 @@ cd desktop/GrammarCheck && xcodegen generate && open GrammarCheck.xcodeproj
 ## Project Structure
 
 ```
-grammarcheck/
-  README.md
-  Makefile
-  docker-compose.yml
-  backend/        # FastAPI (15 source files, 98 tests)
-  frontend/       # React (16 source files)
-  desktop/        # SwiftUI (16 source files)
-  docs/
-    backend.md
-    frontend.md
-    desktop.md
+backend/        # FastAPI (15 source files, 98 tests)
+frontend/       # React (16 source files)
+desktop/        # SwiftUI (16 source files)
+docs/
+  backend.md
+  frontend.md
+  desktop.md
+Makefile
+docker-compose.yml
+grammar_check.py  # Phase 1 CLI
 ```
 
 ## Key Backend Config
